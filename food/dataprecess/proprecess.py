@@ -9,3 +9,6 @@ from boxsers.visual_tools import spectro_plot
 # 从csv 文件读入数据，其中第一行或者第一列为标签数据，如果row=1, 则每一列代表一个拉曼光谱，若row=0，则每一行为一个拉曼光谱。
 def read_csv(row=1):
     pass
+
+def setsom():
+    pass
