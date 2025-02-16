@@ -1,0 +1,10 @@
+boxsers==1.5.2
+numpy
+pandas
+matplotlib
+seaborn
+scipy
+scikit-learn
+tensorflow
+tables
+scikit-image

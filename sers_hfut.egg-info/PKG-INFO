@@ -1,0 +1,73 @@
+Metadata-Version: 2.2
+Name: sers_hfut
+Version: 0.1.0
+Summary: I will describe it later
+Home-page: https://github.com/yourusername/your_repository
+Author: ll
+Author-email: your.email@example.com
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: boxsers==1.5.2
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: seaborn
+Requires-Dist: scipy
+Requires-Dist: scikit-learn
+Requires-Dist: tensorflow
+Requires-Dist: tables
+Requires-Dist: scikit-image
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+# 这是处理光谱（类）的 机器学习算法
+
+## 主要内容
+
+- [classfy] : 用于分类
+  - svm
+  - cnn
+  - mlp
+
+- cluster : 用于聚类
+
+- proprecess : 数据处理相关
+
+- examples  : 示例
+
+## 使用说明
+
+1. 创建环境
+下载 miniconda 
+
+2. 创建虚拟环境 
+（虚拟环境指的是一个python 执行环境，为什么要用虚拟环境？因为不同的项目对需要的外部依赖库版本不同，所以每一个项目可以有一个独立的环境，叫做虚拟环境）
+
+```
+conda create --name food python=3.10
+// 创建food 虚拟环境，python 版本为3.10
+
+conda activate food
+// 进入虚拟环境 food 
+
+pip install -r requirements.txt
+// 安装需要的依赖库
+
+``` 
+3. 使用
+
+
+## 主要方法介绍
+
+
+
