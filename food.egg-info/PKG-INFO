@@ -10,6 +10,7 @@ Classifier: License :: OSI Approved :: MIT License
 Classifier: Operating System :: OS Independent
 Requires-Python: >=3.10
 Description-Content-Type: text/markdown
+License-File: LICENSE.md
 Requires-Dist: boxsers==1.5.2
 Requires-Dist: numpy
 Requires-Dist: pandas
