@@ -156,7 +156,7 @@ def _cnn(data,target_names):
     return model
 
 def cnn(file_path):
-      # 读取 CSV 文件
+    # 读取 CSV 文件
     
     df = pd.read_csv(file_path,encoding='gbk')
 
@@ -199,11 +199,99 @@ def cnn(file_path):
     data = (sp_train, sp_b, lab_train, lab_b)
     return _cnn(data, target_names=classnames)
 
+import numpy as np
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+def _decision_tree(data=None, target_names=None):
+
+    # 将数据集划分为训练集和测试集
+    X_train, X_test, y_train, y_test = data[0], data[1], data[2], data[3]
+
+
+    # 标准化特征
+    scaler = StandardScaler()
+    X_train = scaler.fit_transform(X_train.reshape(-1, X_train.shape[1])).reshape(X_train.shape)
+    X_test = scaler.transform(X_test.reshape(-1, X_test.shape[1])).reshape(X_test.shape)
+    
+    # 将标签转换为one-hot编码
+    y_train = tf.keras.utils.to_categorical(y_train, num_classes=len(target_names))
+    y_test = tf.keras.utils.to_categorical(y_test, num_classes=len(target_names))
+
+
+    # 创建决策树模型
+    clf = DecisionTreeClassifier(random_state=42)
+
+    # 训练模型
+    clf.fit(X_train, y_train)
+
+    # 预测结果
+    y_pred = clf.predict(X_test)
+
+    # 评估模型性能
+    accuracy = np.mean(y_pred == y_test)
+    print("Accuracy:", accuracy)
+
+    feature_names = [str(i) for i in range(len(X_test[0]))]
+    # print (feature_names)
+
+    # 可视化决策树
+    from sklearn.tree import plot_tree
+    # print (len(X_train[0]))
+    fig, ax = plt.subplots(figsize=(12, 12))
+    plot_tree(clf, feature_names=feature_names, class_names=target_names)
+    plt.show()
+
+
+def decision_tree(file_path):
+    # 读取 CSV 文件
+    
+    df = pd.read_csv(file_path,encoding='gbk')
+
+    # # 查看前几行
+    # print("查看前 5 行：")
+    # print(df.head())
+    from boxsers.misc_tools import data_split
+    from boxsers.visual_tools import distribution_plot
+
+    # Features extraction: Exports dataframe spectra as a numpy array (value type = float64).
+    sp = df.iloc[:, 1:].to_numpy()
+    # print ("????")
+    # print (sp[6])
+    # print (sp.shape)
+    # Labels extraction: Export dataframe classes into a numpy array of string values.
+    classnames = df['class'].unique()  
+    # print (classnames)
+    label = df.loc[:, 'class'].values
+
+
+
+    # String to integer labels conversion: 
+    labelencoder = LabelEncoder()  # Creating instance of LabelEncoder
+    lab_int = labelencoder.fit_transform(label)  # 0, 3, 2, ...
+
+    # print("lab_int")
+    # print(lab_int)
+
+    # String to binary labels conversion: 
+    labelbinarizer = LabelBinarizer()  # Creating instance of LabelBinarizer
+    lab_binary = labelbinarizer.fit_transform(label)  # [1 0 0 0] [0 0 0 1] [0 1 0 0], ...
+
+
+    # Train/Validation/Test sets splitting 
+    (sp_train, sp_b, lab_train, lab_b) = data_split(sp, lab_int, b_size=0.5, rdm_ste=None, print_report=False)
+    # print ("lable")
+    # print  (len(sp_train))
+    # print  (len(lab_train))
+    # (sp_val, sp_test, lab_val, lab_test) = data_split(sp, label, b_size=0.1, rdm_ste=None, print_report=False)
+    data = (sp_train, sp_b, lab_train, lab_b)
+    _decision_tree(data,target_names=classnames)
+    
+
 
     
 if __name__ == "__main__":
     file_path = 'food/data/data.csv'  # 替换为你的文件路径
-    print ("使用SVM")
-    svm(file_path)
-    print ("使用cnn")
-    cnn(file_path)
+    print ("使用decision_tree")
+    decision_tree(file_path)
